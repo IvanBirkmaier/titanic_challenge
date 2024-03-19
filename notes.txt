@@ -1,0 +1,12 @@
+Notebooks:
+ 1. https://www.kaggle.com/code/alexisbcook/titanic-tutorial
+
+ 2. Datensatz: https://www.kaggle.com/c/titanic/data
+
+ 3. Bericht über Titanic https://www.ardalpha.de/wissen/geschichte/kulturgeschichte/titanic-untergang-schiff-eis-100.html
+
+ 4. Deckaufbau Titanic https://www.langweiledich.net/aufbau-der-titanic-animierter-blick-in-das-innere/ (video)
+
+ 5. Beispiel https://www.kaggle.com/code/soham1024/titanic-data-science-eda-with-meme-solution 
+
+ 6. https://www.kaggle.com/code/thomascharuel/titanic-getting-above-80-accuracy
