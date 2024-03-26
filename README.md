@@ -8,7 +8,9 @@
     - Einführung von Clustering für die bestimmung der SurnameID
     - Ähnliche Passagiere mit Ähnlichen Merkmalen werden zusammegeclustert 
 
-- Version 4:  (branch version_4)
+- Version 4: Score 79.6 / 79.8 (branch version_4)
+    - Umstruktureierung der Features 
+    
 
 
 
