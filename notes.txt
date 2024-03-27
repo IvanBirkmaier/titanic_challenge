@@ -10,3 +10,46 @@ Notebooks:
  5. Beispiel https://www.kaggle.com/code/soham1024/titanic-data-science-eda-with-meme-solution 
 
  6. https://www.kaggle.com/code/thomascharuel/titanic-getting-above-80-accuracy
+
+
+
+
+ Alters Feature:
+ **Problem:** In meinem Datensatz fehlen in einem nicht zu kleinen Teil der Objekte / Zeilen das Alter (Wert in Spalte Age)<br>
+
+**Einstufung des Problems:**  Bei diesem Problem handeltes sich um ein wichtiges Feature was zur Erstellung eines gut performenden Modells benötigt wird. Frauen und Kinder wurden bevorzugt geretet beim Titanik-Unglück. Fehlende Altersdaten sollten daher nicht einfach mit dem Mean des Alters des gesamten Datensatz aufgewogen werden. Dies könnte z.B dazu führen, dass ein Kind wegen des Alters nicht als Kind erkannt werden könnte. Das kann zu Performenceeinbußen führen da das alter ein guter hinweiß darauf ist ob die Person das Unglück überlebt hat oder nicht.
+<br>
+
+**Beschreibung der Daten:** Folgende Dinge sind gegbeben: Jede Zeile des Datensatz bildet einen Passagier der Titanik ab. Der der Spalte Age befindet sich dass alter eines Passageier. In der Splate Sex werden die Geschlechtsdaten gespeichert (1=Man, 0=Frau). In der Spalte Family_ID ist eine eindeutige ID die die Familienzugehörigkeit darstellt. In der Spalte Speech ist der Title des Passagiers (z.B. Mr, Miss, Master...etc.). Mit den Spalten SibSp und Parch lassen sich die Strukturen der Familie ablesen. Wenn ein Passagier SibSp 0 und Parch 2 hat, während andere Passagiere mit der gleichen Family_ID jeweils SibSp 1 und Parch 0 haben, dann heißt es dass die erste Passagier das Elternteil (Parchil = Parent / Children ) und die zwei anderen Passagiere die Kinder (SibSp= Geschwister/Partner) sind.<br> 
+
+**Lösungsansatz:** Um das oben beschriebene Problem zu lösen mit den beschriebenen Daten, sollte in Abhängigkeit von Familienstrukturen (SibSp / Parchil / Family_ID), Geschlecht und Titel, das Alter ermittelt werden.<br>
+
+**Vorgehen zur Lösung des Problems:** Es muss ein Regelwerk definiert werden, nach dem das alter ermittelt werden kann:<br>
+    - Regel 1: Hat der Passagier Familie (Gruppe mit gleicher Family_id > 0)? <br>
+        - a) Wenn ja dann soll überprüft werden ob in Familie altersdaten vorhanden sind.<br>
+            - a1) Ja -> Dann gehe zu Regel 2.<br>
+            - a2) Nein Führe b) aus.<br>
+        - b) Wenn nein dann soll geschaut werden welchen Titel (Spalte Speech) dieser allein reisender Passagier hat. Es soll dann nämlich das durchschnittliche Alter der Gruppe an Passagieren mit dem gleichen Titel bekommen.<br>
+    - Regel 2: Ist die Person ein Elternteil (Vater/Mutter)<br>
+        - a) Wenn ja dann soll überprüft Wie alt die Kinder und der Partner sind. Passagier sollte dann auf jedenfall wesentlich älter als die Kinder sein und ähnlich alt wie der Partner (Wenn vorhanden)<br>
+    - etc..  (Siehe Notizen Beispiele für Regeln)
+    
+-----
+**Notizen**<br>
+- Wenn ein es eine verheiratete Frau oder Mann ist:
+    - Kein Kind: am Ehemann orientieren  (Wie alt dieser ist)
+    - Kinder: Schauen wie alt diese sind (plus Eheman wenn vorhanden) und daran orientieren
+    - Ohne Kinder und Mann den Durchschnitt nehmen 
+- Kinder:
+    - Schauen wie alt geschwister + Eltern sind daran dann schätzen.
+
+
+Diese möchte ich nun ausfüllen hierbei möchte ich mir bei den Objekten/Zeilen  wo Age fehlt wie folgt vorgehen:
+
+Ich möchte mir die Familienverhältnisse. Wenn die Person alleine reist dann bekommt sie einfach das Durchschnittsalter von allen Personen des Datensatz die den gleichen Title träge (Spalte Speech, z.B Mr).
+Wenn die Person nicht  alleine reist dann soll wie folgt vorgegangen werden:
+Es soll erst der Title betrachtet werden. Z.b Mister deutet darauf hin dass es ein Kind ist und wahrscheinlich nicht älter als 10 Jahre. Bei Mrs würde es bedeuten dass die Frau schon verheiratet ist und wahrscheinlich älter als 18 Jahre. Danach will schauen ob die Person eventuell Eltern oder geschwister hat. Wenn z.b ein Mr 3 Geschwister hat (alle im alter von 15 bis 20) und die Eltern beide (ca. 40 Jahre) alt sind, dann soll dass für diese Persopn als Age der durchschnitt im Alter seiner geschwister genommen werden. Wenn ein Person 2 Junge Eltern hat (beide um die 25 Jahre) dann lässt sich daduch rückschließen dass das Kind z.b nicht älter als 7-8 Jahre alt sein kann.
+
+Sollte eine ehepaar ohne Kinder  an Board sein und sie ist 31 und bei Ihm fehlt dass alter, dann will ich dass er pauschal 2 Jahre-4 jahre älter als sie geschätzt wird (also ca 33-36) da es üblich ist dass Männer etwas älter als Ihre Partnerinnen sind   
+
+Ich möchte so geschickt die Fehlenden alter auffüllen.
